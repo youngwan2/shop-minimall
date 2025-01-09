@@ -169,9 +169,8 @@
 		e.preventDefault();
 		const formData = new URLSearchParams(new FormData(registerForm)).toString();
 		const url = "/shop/register"
-			const body = {
-				userId: useridInput.value
-		}
+		
+	
 		const config = {
 			     method: 'POST',
 			     headers: {
@@ -179,15 +178,20 @@
 			        },
 			     body: formData
 		}
-		const response = await fetch(url, config);
 		
-		const data= await response.json();
-		
-		alert(data.meg)
-		if(response.ok){
-			console.log(response.status)
-			location.href="/shop"
-		}			
+		try {
+			const response = await fetch(url, config);
+			
+			const data= await response.json();
+			
+			alert(data.meg)
+			if(response.ok){
+				location.href="/shop"
+			}	
+		} catch(error){
+			alert(error.message);
+			
+		}
 	}
 </script>
 

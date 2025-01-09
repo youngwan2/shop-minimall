@@ -5,19 +5,24 @@
 <mapper namespace="com.config.MemberMapper">
 
 
+<!--  중복 유저 체크 -->
 <select id="idCheck" parameterType="string" resultType="com.dto.MemberDTO">
-
 select *
 from member
 where userid = #{userid}
-
 </select>
 
-<insert id="registerMember" parameterType="com.dto.MemberDTO">
 
+<!--  회원 가입-->
+<insert id="registerMember" parameterType="com.dto.MemberDTO">
  insert into member(userid, passwd, username, post, addr1, addr2, phone1, phone2, phone3, email1, email2) 
  values(#{userid},#{passwd},#{username},#{post},#{addr1},#{addr2},#{phone1},#{phone2},#{phone3},#{email1},#{email2})
-
 </insert>
+
+<!-- 유저정보 조회 -->
+<select id="selectUserInfo" parameterType="com.dto.RequestLoginDTO" resultType="com.dto.ResponseUserInfoDTO">
+  select userid, username from member
+  where userid=#{userid} and passwd=#{passwd}
+</select>
 
 </mapper>

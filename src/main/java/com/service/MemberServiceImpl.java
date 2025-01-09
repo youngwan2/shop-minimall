@@ -5,6 +5,8 @@ import org.apache.ibatis.session.SqlSession;
 import com.config.MySqlSessionFactory;
 import com.dao.MemberDao;
 import com.dto.MemberDTO;
+import com.dto.RequestLoginDTO;
+import com.dto.ResponseUserInfoDTO;
 
 public class MemberServiceImpl implements MemberService {
 	
@@ -51,6 +53,25 @@ public class MemberServiceImpl implements MemberService {
 			session.close();
 		}
 		return isRegister;
+	}
+
+	// 로그인 처리
+	@Override
+	public ResponseUserInfoDTO login(RequestLoginDTO reqeustLoginDto) {
+		ResponseUserInfoDTO dto =null;
+		SqlSession session = MySqlSessionFactory.getSession();
+		
+		try {
+			  dto = memberDao.login(session, reqeustLoginDto) ;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println(ex.getMessage());
+			
+		} finally {
+			session.close();
+		}
+		
+		return dto ;
 	}
 
 }
