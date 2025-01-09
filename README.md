@@ -23,7 +23,7 @@
 
 ## 기술 스택
 - **서버**: Apache Tomcat 10.x
-- **프론트엔드**: HTML, CSS, JavaScript
+- **프론트엔드**: HTML, CSS, JavaScript, JSP
 - **백엔드**: JSP 3.x, Servlet
 - **데이터베이스**: MySQL 8.x
 - **ORM**: MyBatis
@@ -43,11 +43,12 @@ shoppingmall/
 │   │       └── images/           # 이미지 파일
 ├── resources/
 │   └── mybatis-config.xml        # MyBatis 설정 파일
-├── pom.xml                        # Maven 의존성 관리 파일
 └── README.md                      # 프로젝트 설명
 ```
 
 ## 데이터베이스 테이블 설계
+![image](https://github.com/user-attachments/assets/0145c36f-1f5b-4486-a7ad-d56183688e09)
+
 ### **member** 테이블
 
 | 필드 이름  | 데이터 타입    | 설명           |
@@ -111,4 +112,4 @@ shoppingmall/
 | gImage      | VARCHAR(20)    | 상품 이미지    |
 
 ## 라이선스
-이 리포지토리는 학습 목적으로 생성되었으며, 누구나 재편집하여 사용이 가능하다. 다만, 상업적 목적의 사용에 대해서는 포함된 패키지의 라이선스를 참고하길 바란다.
+이 리포지토리는 학습 목적으로 생성 되었으며, 누구나 참고 후 재편집이 가능하다.
