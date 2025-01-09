@@ -1,0 +1,19 @@
+# Tomcat 관련 폴더
+work/
+logs/
+temp/
+
+# 빌드 파일
+*.war
+
+# IDE 설정 파일
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+
+# 설정 파일
+*.properties
+*.json
+!config.example.json
