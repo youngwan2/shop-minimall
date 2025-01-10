@@ -91,5 +91,25 @@ public class MemberServiceImpl implements MemberService {
 		
 		return dto;
 	}
+	
+	// 유저 프로필 정보 수정
+	@Override
+	public boolean updateUserProfile(MemberDTO memberDTO) {
+		boolean isUpdatedProfile = false;
+		SqlSession session = MySqlSessionFactory.getSession();
+		
+		try {
+			if(memberDao.updateUserProfile(session, memberDTO) != 0) {
+				isUpdatedProfile = true;
+				session.commit();
+			}
+		} catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		} finally{
+			session.close();
+		}
+		
+		return isUpdatedProfile;
+	}
 
 }

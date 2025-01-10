@@ -32,4 +32,10 @@ from member
 where userid = #{userid}
 </select>
 
+<!-- 유저 프로필 정보 수정 -->
+<update id="updateUserProfile" parameterType="com.dto.MemberDTO">
+	update member
+	set post=#{post}, addr1=#{addr1}, addr2=#{addr2}, phone1=#{phone1}, phone2=#{phone2}, phone3=#{phone3}, email1=#{email1}, email2=#{email2}
+	where userid=#{userid}
+</update>
 </mapper>

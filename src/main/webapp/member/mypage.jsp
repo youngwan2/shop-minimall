@@ -3,7 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-    <form class="row g-3 m-4">
+    <form class="row g-3 m-4" id="mypage-edit-form">
 		  <div class="row mb-3">
 		    <label for="userid" class="col-sm-2 col-form-label">아이디</label>
 		    <div class="col-auto">
@@ -105,10 +105,11 @@
 </div>
 
 <script>
-	const editForm = document.querySelctor("#mypage-edit-form");
+	const editForm = document.querySelector("#mypage-edit-form");
 	editForm.addEventListener("submit", updateProfile);
 	
-	function updateProfile(e){
+	async function updateProfile(e){
+		e.preventDefault();
 		const formData = new URLSearchParams(new FormData(editForm)).toString();
 		
 		const url = "/shop/mypage-task"

@@ -29,4 +29,10 @@ public class MemberDao {
 	public ResponseUserProfileDTO getUserProfile(SqlSession session, String userid) {
 		return session.selectOne("com.config.MemberMapper.selectUserProfile", userid);
 	}
+	
+	// 프로필 수정
+	public int updateUserProfile(SqlSession session, MemberDTO memberDto) {
+		return session.update("com.config.MemberMapper.updateUserProfile", memberDto);
+		
+	}
 }

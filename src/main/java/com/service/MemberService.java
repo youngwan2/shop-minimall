@@ -14,5 +14,6 @@ public interface MemberService {
 	public boolean registerMember(MemberDTO memberDto);
 	public ResponseSessionInfoDTO login(RequestLoginDTO reqeustLoginDto);
 	public ResponseUserProfileDTO getUserProfile(String userid);
+	public boolean updateUserProfile(MemberDTO memberDTO);
 
 }

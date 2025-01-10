@@ -20,11 +20,20 @@ public class MypageTaskServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		String userid = (String) session.getAttribute("userid");
+		response.setContentType("application/json");
+		
+		// 세션 정보가 없으면 
+		if(userid == null || userid.isEmpty()) {
+			response.setStatus(401);
+			response.getWriter().write("{\"meg\":" + "\"접근 권한이 없습니다. \"}"); // 클라이언트로 결과 메시지 전송
+			return;
+		}
 		
 		
-		
-		
-		   // 폼 데이터 받기
+	   // 폼 데이터 받기
         String post = request.getParameter("post");
         String addr1 = request.getParameter("addr1");
         String addr2 = request.getParameter("addr2");
@@ -33,12 +42,6 @@ public class MypageTaskServlet extends HttpServlet {
         String phone3 = request.getParameter("phone3");
         String email1 = request.getParameter("email1");
         String email2 = request.getParameter("email2");
-        String email3 = request.getParameter("email3");
-        
-        // email2 는 사용자가 직접 입력한 도메인이므로 빈 값인 경우 email3 의 선택형 도메인으로 대체
-        if(email2.isEmpty() || email2 !=null) {
-        	email2 = email3;
-        }
         
         
         // 받은 데이터를 MemberDTO에 담기
@@ -54,23 +57,27 @@ public class MypageTaskServlet extends HttpServlet {
         memberDto.setEmail2(email2);
         
         System.out.println(memberDto);
+        
         // 서비스 객체를 통해 회원가입 처리
         MemberService service = new MemberServiceImpl();
         service.setDao(new MemberDao());
         
-        // 회원가입 처리
-        boolean isRegistered = service.registerMember(memberDto);
+        // 프로필 정보 수정
         
-        // 응답 처리
-        response.setContentType("aplication/json; charset=utf-8");
-        if (isRegistered) {
-        	 response.setStatus(201);
-        	 response.getWriter().write("{\"meg\":" + "\"회원가입 되었습니다.\"}"); // 클라이언트로 결과 메시지 전송
-        } else {
+        try {
+	        boolean isUpdated = service.updateUserProfile(memberDto);
+	        // 응답 처리
+	        response.setContentType("aplication/json; charset=utf-8");
+	        if (isUpdated) {
+	        	 response.setStatus(201);
+	        	 response.getWriter().write("{\"meg\":" + "\"프로필 정보가 수정 되었습니다.\"}"); // 클라이언트로 결과 메시지 전송
+	        } else {
+	        	response.setStatus(409);
+	        	response.getWriter().write("{\"meg\":" + "\"프로필 수정에 실패하였습니다.\"}"); // 클라이언트로 결과 메시지 전송
+	        }
+        } catch(Exception ex) {
         	response.setStatus(500);
-        	response.getWriter().write("{\"meg\":" + "\"회원가입에 실패하였습니다.\"}"); // 클라이언트로 결과 메시지 전송
+       	 	response.getWriter().write("{\"meg\":" + "\" 서버 문제 발생 \"}"); // 클라이언트로 결과 메시지 전송
         }
-		
 	}
-
 }
