@@ -1,7 +1,9 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <div class="container">
+	<c:if test="${empty username}">
     <form class="row g-3 m-4" id="login-form">
 		  <div class="row mb-3">
 		    <label for="userid" class="col-sm-2 col-form-label">아이디</label>
@@ -19,8 +21,15 @@
 		    <button type="submit" class="btn btn-primary">로그인</button>
 		    <button type="reset" class="btn btn-primary">취소</button>
 		  </div>
- </form>
-    <script>
+ 	</form>
+ </c:if>
+ <c:if test="${username != null}">
+ 		<p style="margin-top:1.25rem">현재 로그인 상태입니다.</p>
+		<c:redirect url="main.jsp" /> 
+ </c:if>
+   
+</div> 
+ <script>
     	const loginForm = document.getElementById("login-form");
     	
     
@@ -57,4 +66,3 @@
     	}
     	
     </script>
-</div> 

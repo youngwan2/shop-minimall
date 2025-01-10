@@ -1,13 +1,11 @@
 package com.dto;
 
-public class ResponseUserInfoDTO {
-	
+public class ResponseSessionInfoDTO {
 	String userid;
 	String username;
-	public ResponseUserInfoDTO() {
-		// TODO Auto-generated constructor stub
+	public ResponseSessionInfoDTO() {
 	}
-	public ResponseUserInfoDTO(String userid, String username) {
+	public ResponseSessionInfoDTO(String userid, String username) {
 		super();
 		this.userid = userid;
 		this.username = username;
@@ -26,8 +24,8 @@ public class ResponseUserInfoDTO {
 	}
 	@Override
 	public String toString() {
-		return "ResponseUserInfoDTO [userid=" + userid + ", username=" + username + "]";
+		return "ResponseSessionInfoDTO [userid=" + userid + ", username=" + username + "]";
 	}
-
-
+	
+	
 }

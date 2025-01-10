@@ -19,10 +19,17 @@ where userid = #{userid}
  values(#{userid},#{passwd},#{username},#{post},#{addr1},#{addr2},#{phone1},#{phone2},#{phone3},#{email1},#{email2})
 </insert>
 
-<!-- 유저정보 조회 -->
-<select id="selectUserInfo" parameterType="com.dto.RequestLoginDTO" resultType="com.dto.ResponseUserInfoDTO">
+<!-- 유저 세션 용도 정보조회 -->
+<select id="selectUserSessionInfo" parameterType="com.dto.RequestLoginDTO" resultType="com.dto.ResponseSessionInfoDTO">
   select userid, username from member
   where userid=#{userid} and passwd=#{passwd}
+</select>
+
+<!-- 유저 프로필 정보 조회 -->
+<select id="selectUserProfile" parameterType="string" resultType="com.dto.ResponseUserProfileDTO">
+select userid, passwd, username, post, addr1, addr2, phone1, phone2, phone3, email1, email2
+from member
+where userid = #{userid}
 </select>
 
 </mapper>

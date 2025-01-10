@@ -6,7 +6,8 @@ import com.config.MySqlSessionFactory;
 import com.dao.MemberDao;
 import com.dto.MemberDTO;
 import com.dto.RequestLoginDTO;
-import com.dto.ResponseUserInfoDTO;
+import com.dto.ResponseSessionInfoDTO;
+import com.dto.ResponseUserProfileDTO;
 
 public class MemberServiceImpl implements MemberService {
 	
@@ -16,7 +17,7 @@ public class MemberServiceImpl implements MemberService {
 		this.memberDao = dao;
 		
 	}
-
+    // 아이디 중복 확인
 	@Override
 	public MemberDTO idCheck(String userid) {
 		MemberDTO memberDto  = null;
@@ -33,7 +34,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-//	회원가입
+	//	회원가입
 	@Override
 	public boolean registerMember(MemberDTO memberDto) {
 		boolean isRegister=false;
@@ -57,8 +58,8 @@ public class MemberServiceImpl implements MemberService {
 
 	// 로그인 처리
 	@Override
-	public ResponseUserInfoDTO login(RequestLoginDTO reqeustLoginDto) {
-		ResponseUserInfoDTO dto =null;
+	public ResponseSessionInfoDTO login(RequestLoginDTO reqeustLoginDto) {
+		ResponseSessionInfoDTO dto =null;
 		SqlSession session = MySqlSessionFactory.getSession();
 		
 		try {
@@ -72,6 +73,23 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		return dto ;
+	}
+
+	// 유저 프로필 정보 조회
+	@Override
+	public ResponseUserProfileDTO getUserProfile(String userid) {
+		ResponseUserProfileDTO dto =null;
+		SqlSession session = MySqlSessionFactory.getSession();
+		try {
+			dto = memberDao.getUserProfile(session, userid);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println(ex.getMessage());
+		} finally {
+			session.close();
+		}
+		
+		return dto;
 	}
 
 }
